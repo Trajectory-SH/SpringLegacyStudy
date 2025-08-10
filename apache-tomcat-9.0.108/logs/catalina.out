@@ -1,0 +1,152 @@
+NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+07-Aug-2025 12:32:27.727 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 서버 버전 이름:    Apache Tomcat/9.0.108
+07-Aug-2025 12:32:27.728 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server 빌드 시각:  Jul 31 2025 18:19:48 UTC
+07-Aug-2025 12:32:27.728 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server 버전 번호:  9.0.108.0
+07-Aug-2025 12:32:27.729 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 운영체제 이름:     Mac OS X
+07-Aug-2025 12:32:27.729 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 운영체제 버전:     15.0
+07-Aug-2025 12:32:27.729 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 아키텍처:          aarch64
+07-Aug-2025 12:32:27.729 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 자바 홈:           /Users/kronos0697/Library/Java/JavaVirtualMachines/openjdk-24/Contents/Home
+07-Aug-2025 12:32:27.729 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM 버전:          24+36-3646
+07-Aug-2025 12:32:27.729 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM 벤더:          Oracle Corporation
+07-Aug-2025 12:32:27.729 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:     /Users/kronos0697/Downloads/apache-tomcat-9.0.108
+07-Aug-2025 12:32:27.729 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:     /Users/kronos0697/Downloads/apache-tomcat-9.0.108
+07-Aug-2025 12:32:27.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang=ALL-UNNAMED
+07-Aug-2025 12:32:27.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang.invoke=ALL-UNNAMED
+07-Aug-2025 12:32:27.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+07-Aug-2025 12:32:27.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.io=ALL-UNNAMED
+07-Aug-2025 12:32:27.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.util=ALL-UNNAMED
+07-Aug-2025 12:32:27.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+07-Aug-2025 12:32:27.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+07-Aug-2025 12:32:27.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.util.logging.config.file=/Users/kronos0697/Downloads/apache-tomcat-9.0.108/conf/logging.properties
+07-Aug-2025 12:32:27.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+07-Aug-2025 12:32:27.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djdk.tls.ephemeralDHKeySize=2048
+07-Aug-2025 12:32:27.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+07-Aug-2025 12:32:27.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dsun.io.useCanonCaches=false
+07-Aug-2025 12:32:27.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+07-Aug-2025 12:32:27.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dignore.endorsed.dirs=
+07-Aug-2025 12:32:27.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dcatalina.base=/Users/kronos0697/Downloads/apache-tomcat-9.0.108
+07-Aug-2025 12:32:27.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dcatalina.home=/Users/kronos0697/Downloads/apache-tomcat-9.0.108
+07-Aug-2025 12:32:27.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.io.tmpdir=/Users/kronos0697/Downloads/apache-tomcat-9.0.108/temp
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.apache.tomcat.jni.Library in an unnamed module (file:/Users/kronos0697/Downloads/apache-tomcat-9.0.108/lib/tomcat-jni.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+07-Aug-2025 12:32:27.743 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent 프로덕션 환경들에서 최적의 성능을 제공하는, APR 기반 Apache Tomcat Native 라이브러리가, 다음 java.library.path에서 발견되지 않습니다: [/Users/kronos0697/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+07-Aug-2025 12:32:27.886 INFO [main] org.apache.coyote.AbstractProtocol.init 프로토콜 핸들러 ["http-nio-8080"]을(를) 초기화합니다.
+07-Aug-2025 12:32:27.900 INFO [main] org.apache.catalina.startup.Catalina.load [298] 밀리초 내에 서버가 초기화되었습니다.
+07-Aug-2025 12:32:27.919 INFO [main] org.apache.catalina.core.StandardService.startInternal 서비스 [Catalina]을(를) 시작합니다.
+07-Aug-2025 12:32:27.919 INFO [main] org.apache.catalina.core.StandardEngine.startInternal 서버 엔진을 시작합니다: [Apache Tomcat/9.0.108]
+07-Aug-2025 12:32:27.922 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/docs]을(를) 배치합니다.
+07-Aug-2025 12:32:28.056 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/docs]에 대한 배치가 [132] 밀리초에 완료되었습니다.
+07-Aug-2025 12:32:28.057 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/manager]을(를) 배치합니다.
+07-Aug-2025 12:32:28.071 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/manager]에 대한 배치가 [14] 밀리초에 완료되었습니다.
+07-Aug-2025 12:32:28.071 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/examples]을(를) 배치합니다.
+07-Aug-2025 12:32:28.168 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/examples]에 대한 배치가 [97] 밀리초에 완료되었습니다.
+07-Aug-2025 12:32:28.169 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/ROOT]을(를) 배치합니다.
+07-Aug-2025 12:32:28.175 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/ROOT]에 대한 배치가 [7] 밀리초에 완료되었습니다.
+07-Aug-2025 12:32:28.175 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/host-manager]을(를) 배치합니다.
+07-Aug-2025 12:32:28.182 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/host-manager]에 대한 배치가 [7] 밀리초에 완료되었습니다.
+07-Aug-2025 12:32:28.183 INFO [main] org.apache.coyote.AbstractProtocol.start 프로토콜 핸들러 ["http-nio-8080"]을(를) 시작합니다.
+07-Aug-2025 12:32:28.188 INFO [main] org.apache.catalina.startup.Catalina.start 서버가 [286] 밀리초 내에 시작되었습니다.
+NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+07-Aug-2025 12:33:47.863 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 서버 버전 이름:    Apache Tomcat/9.0.108
+07-Aug-2025 12:33:47.864 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server 빌드 시각:  Jul 31 2025 18:19:48 UTC
+07-Aug-2025 12:33:47.864 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server 버전 번호:  9.0.108.0
+07-Aug-2025 12:33:47.864 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 운영체제 이름:     Mac OS X
+07-Aug-2025 12:33:47.864 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 운영체제 버전:     15.0
+07-Aug-2025 12:33:47.864 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 아키텍처:          aarch64
+07-Aug-2025 12:33:47.864 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 자바 홈:           /Users/kronos0697/Library/Java/JavaVirtualMachines/openjdk-24/Contents/Home
+07-Aug-2025 12:33:47.864 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM 버전:          24+36-3646
+07-Aug-2025 12:33:47.864 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM 벤더:          Oracle Corporation
+07-Aug-2025 12:33:47.864 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:     /Users/kronos0697/Downloads/apache-tomcat-9.0.108
+07-Aug-2025 12:33:47.864 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:     /Users/kronos0697/Downloads/apache-tomcat-9.0.108
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang=ALL-UNNAMED
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang.invoke=ALL-UNNAMED
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.io=ALL-UNNAMED
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.util=ALL-UNNAMED
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.util.logging.config.file=/Users/kronos0697/Downloads/apache-tomcat-9.0.108/conf/logging.properties
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djdk.tls.ephemeralDHKeySize=2048
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dsun.io.useCanonCaches=false
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dignore.endorsed.dirs=
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dcatalina.base=/Users/kronos0697/Downloads/apache-tomcat-9.0.108
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dcatalina.home=/Users/kronos0697/Downloads/apache-tomcat-9.0.108
+07-Aug-2025 12:33:47.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.io.tmpdir=/Users/kronos0697/Downloads/apache-tomcat-9.0.108/temp
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.apache.tomcat.jni.Library in an unnamed module (file:/Users/kronos0697/Downloads/apache-tomcat-9.0.108/lib/tomcat-jni.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+07-Aug-2025 12:33:47.873 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent 프로덕션 환경들에서 최적의 성능을 제공하는, APR 기반 Apache Tomcat Native 라이브러리가, 다음 java.library.path에서 발견되지 않습니다: [/Users/kronos0697/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+07-Aug-2025 12:33:47.995 INFO [main] org.apache.coyote.AbstractProtocol.init 프로토콜 핸들러 ["http-nio-8080"]을(를) 초기화합니다.
+07-Aug-2025 12:33:48.003 SEVERE [main] org.apache.catalina.util.LifecycleBase.handleSubClassException 구성요소 [Connector["http-nio-8080"]]을(를) 초기화하지 못했습니다.
+	org.apache.catalina.LifecycleException: 프로토콜 핸들러 초기화가 실패했습니다.
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1072)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardService.initInternal(StandardService.java:522)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:986)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:690)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:713)
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+		at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:302)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:475)
+	Caused by: java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:511)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:335)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:297)
+		at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:298)
+		at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:253)
+		at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1465)
+		at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:1478)
+		at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:663)
+		at org.apache.coyote.http11.AbstractHttp11Protocol.init(AbstractHttp11Protocol.java:80)
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1070)
+		... 11 more
+07-Aug-2025 12:33:48.004 INFO [main] org.apache.catalina.startup.Catalina.load [229] 밀리초 내에 서버가 초기화되었습니다.
+07-Aug-2025 12:33:48.019 INFO [main] org.apache.catalina.core.StandardService.startInternal 서비스 [Catalina]을(를) 시작합니다.
+07-Aug-2025 12:33:48.019 INFO [main] org.apache.catalina.core.StandardEngine.startInternal 서버 엔진을 시작합니다: [Apache Tomcat/9.0.108]
+07-Aug-2025 12:33:48.021 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/docs]을(를) 배치합니다.
+07-Aug-2025 12:33:48.131 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/docs]에 대한 배치가 [108] 밀리초에 완료되었습니다.
+07-Aug-2025 12:33:48.131 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/manager]을(를) 배치합니다.
+07-Aug-2025 12:33:48.150 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/manager]에 대한 배치가 [19] 밀리초에 완료되었습니다.
+07-Aug-2025 12:33:48.150 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/examples]을(를) 배치합니다.
+07-Aug-2025 12:33:48.241 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/examples]에 대한 배치가 [91] 밀리초에 완료되었습니다.
+07-Aug-2025 12:33:48.241 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/ROOT]을(를) 배치합니다.
+07-Aug-2025 12:33:48.247 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/ROOT]에 대한 배치가 [6] 밀리초에 완료되었습니다.
+07-Aug-2025 12:33:48.247 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/host-manager]을(를) 배치합니다.
+07-Aug-2025 12:33:48.254 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/kronos0697/Downloads/apache-tomcat-9.0.108/webapps/host-manager]에 대한 배치가 [7] 밀리초에 완료되었습니다.
+07-Aug-2025 12:33:48.256 INFO [main] org.apache.catalina.startup.Catalina.start 서버가 [251] 밀리초 내에 시작되었습니다.
+07-Aug-2025 12:33:48.258 SEVERE [main] org.apache.catalina.core.StandardServer.await 주소 [localhost]와(과) 포트 [8005]에, 서버 셧다운 소켓을 생성하지 못했습니다. (base 포트 [8005], offset [0])
+	java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:511)
+		at java.base/sun.nio.ch.Net.bind(Net.java:500)
+		at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:630)
+		at java.base/java.net.ServerSocket.bind(ServerSocket.java:326)
+		at java.base/java.net.ServerSocket.<init>(ServerSocket.java:222)
+		at org.apache.catalina.core.StandardServer.await(StandardServer.java:537)
+		at org.apache.catalina.startup.Catalina.await(Catalina.java:829)
+		at org.apache.catalina.startup.Catalina.start(Catalina.java:777)
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+		at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:345)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:476)
+07-Aug-2025 12:33:48.259 INFO [main] org.apache.coyote.AbstractProtocol.pause 프로토콜 핸들러 ["http-nio-8080"]을(를) 일시 정지 중
+07-Aug-2025 12:33:48.259 INFO [main] org.apache.catalina.core.StandardService.stopInternal 서비스 [Catalina]을(를) 중지시킵니다.
+07-Aug-2025 12:33:48.268 INFO [main] org.apache.coyote.AbstractProtocol.stop 프로토콜 핸들러 ["http-nio-8080"]을(를) 중지시킵니다.
+07-Aug-2025 12:33:48.269 INFO [main] org.apache.coyote.AbstractProtocol.destroy 프로토콜 핸들러 ["http-nio-8080"]을(를) 소멸시킵니다.
+07-Aug-2025 12:34:19.764 INFO [main] org.apache.catalina.core.StandardServer.await 셧다운 포트를 통해 유효한 셧다운 명령을 받았습니다. 서버 인스턴스를 중지시킵니다.
+07-Aug-2025 12:34:19.765 INFO [main] org.apache.coyote.AbstractProtocol.pause 프로토콜 핸들러 ["http-nio-8080"]을(를) 일시 정지 중
+07-Aug-2025 12:34:19.767 INFO [main] org.apache.catalina.core.StandardService.stopInternal 서비스 [Catalina]을(를) 중지시킵니다.
+07-Aug-2025 12:34:19.778 INFO [main] org.apache.coyote.AbstractProtocol.stop 프로토콜 핸들러 ["http-nio-8080"]을(를) 중지시킵니다.
+07-Aug-2025 12:34:19.793 INFO [main] org.apache.coyote.AbstractProtocol.destroy 프로토콜 핸들러 ["http-nio-8080"]을(를) 소멸시킵니다.

@@ -1,0 +1,33 @@
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# Build output
+target/
+build/
+bin/
+
+# Gradle/Maven
+.gradle/
+.mvn/wrapper/maven-wrapper.jar
+!mvnw
+!mvnw.cmd
+!gradlew
+!gradlew.bat
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+
+# Secrets
+.env
+*.key
+*.pem
