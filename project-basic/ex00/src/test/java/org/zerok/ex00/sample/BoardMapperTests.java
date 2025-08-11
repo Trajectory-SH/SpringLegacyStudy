@@ -6,12 +6,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.zerock.ex00.domain.BoardVO;
 import org.zerock.ex00.mappers.BoardMapper;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j2
 public class BoardMapperTests {
+
     @Autowired(required = false)
     BoardMapper boardMapper;
 
@@ -24,4 +26,33 @@ public class BoardMapperTests {
     public void testList() {
         boardMapper.getList().forEach(boardVO -> log.info(boardVO));
     }
+
+    @Test
+    public void testInsert() {
+        BoardVO boardVO = new BoardVO();
+        boardVO.setTitle("newTest");
+        boardVO.setContent("hello World");
+        boardVO.setWriter("JSH");
+
+        log.info("count :" + boardMapper.insert(boardVO));
+        log.info("bno :" + boardVO.getBno());
+    }
+
+    @Test
+    public void testSelect() {
+        Long bno = 3L;
+        log.info(boardMapper.select(bno));
+    }
+
+    @Test
+    public void testUpdate() {
+        BoardVO boardVO = new BoardVO();
+        boardVO.setTitle("update my Title");
+        boardVO.setContent("hello my name is JSH");
+        boardVO.setBno(3L);
+        int updateCount = boardMapper.update(boardVO);
+
+        log.info("update: " + updateCount);
+    }
+
 }
