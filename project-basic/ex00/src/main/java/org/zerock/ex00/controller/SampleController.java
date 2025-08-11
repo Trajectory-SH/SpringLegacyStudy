@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/sample")
 public class SampleController {
 
-    @GetMapping("/")
+    //void 타입인 경우에는 URL경로를 논리 뷰 이름으로 사용한다.
+    @GetMapping("/basic ")
     public void basic() {
         log.info("basic---------------");
     }
-
-
 }
