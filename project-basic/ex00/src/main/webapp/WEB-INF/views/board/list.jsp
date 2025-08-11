@@ -1,12 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-  <script>
-    const rno = '${result}'
-    // FlashAttribute이기 때문에... 사용자가 다시 요청하면 해당 값을 더 이상 전송하지 않는다 따라서 오류가 발생할 수 있기 때문에 문자열로 처리한다.
-  </script>
-</body>
-</html>
+<%@include file="../includes/header.jsp"%>
+
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+                </div>
+<%@include file="../includes/footer.jsp"%>
+
+<script>
+    const name = 'AAA'
+</script>
+<%@include file="../includes/end.jsp"%>
