@@ -22,10 +22,6 @@ public class BoardMapperTests {
 
     @Test
     public void testList() {
-
         boardMapper.getList().forEach(boardVO -> log.info(boardVO));
     }
-
-
-
 }
