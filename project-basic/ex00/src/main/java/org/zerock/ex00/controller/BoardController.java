@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.ex00.domain.BoardVO;
 import org.zerock.ex00.service.BoardService;
 
@@ -31,7 +33,7 @@ public class BoardController {
         model.addAttribute("list", list);
     }
 
-    @GetMapping({"/{job}/{bno}","/{job}/{bno}"})
+    @GetMapping({"/{job}/{bno}"})
     //한 메서드를 이용해서 여러가지 URL을 처리 할 수 있다.
     public String read(@PathVariable(name = "bno") Long bno,
                        @PathVariable(name = "job") String job,
@@ -39,6 +41,9 @@ public class BoardController {
         log.info("bno: {}", bno);
         log.info("job: {}", job);
 
+        if (!(job.equals("read") || job.equals("modify"))) {
+            throw new RuntimeException("Bad Request Job");
+        }
 
         BoardVO boardVO = boardService.get(bno);
 
@@ -48,8 +53,6 @@ public class BoardController {
 
         return "/board/" + job;
     }
-
-
 /*
     @GetMapping("/modify/{bno}")
     public String modify(@PathVariable(name = "bno") Long bno, Model model) {
@@ -65,7 +68,20 @@ public class BoardController {
     }
 */
 
+    @GetMapping("/register")
+    public void register() {
+    }
 
+    @PostMapping("/register")
+    public String registerPost(BoardVO boardVO,
+                               RedirectAttributes rttr) {
 
+        log.info("boardVO: " + boardVO);
 
+        Long bno = boardService.register(boardVO);
+
+        rttr.addFlashAttribute("result", bno);
+
+        return "redirect:/board/list";
+    }
 }
