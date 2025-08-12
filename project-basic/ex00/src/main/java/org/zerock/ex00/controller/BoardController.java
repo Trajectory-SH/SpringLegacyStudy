@@ -4,12 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.ex00.domain.BoardVO;
+import org.zerock.ex00.domain.Criteria;
+import org.zerock.ex00.domain.PageDto;
 import org.zerock.ex00.service.BoardService;
 
 import java.util.List;
@@ -24,13 +23,21 @@ public class BoardController {
 
     //첫번째 개발의 대상 -> List (board의 list)
     @GetMapping("/list")
-    public void list(Model model) {
+    public void list(
+            @ModelAttribute("cri") Criteria criteria,//pageNum과 Amount값을 수집해준다.
+            Model model) {
         log.info("list call..........");
+        List<BoardVO> list = boardService.getList(criteria);
 
-        List<BoardVO> list = boardService.list();
-        log.info(list);
+
 
         model.addAttribute("list", list);
+
+        PageDto pageDto = new PageDto(criteria, boardService.getTotal(criteria));
+        log.info("-------------------------------------");
+        log.info(pageDto);
+        log.info("-------------------------------------");
+        model.addAttribute("pageMaker", pageDto);
     }
 
     @GetMapping({"/{job}/{bno}"})

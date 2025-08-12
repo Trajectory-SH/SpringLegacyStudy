@@ -8,6 +8,18 @@
         select * from tbl_board where bno > 0 order by bno desc
     </select>
 
+    <select id="getPage" resultType="BoardVO">
+        select * from
+        tbl_board where bno > 0 order by bno desc
+        limit #{skip}, #{amount}
+    </select>
+
+    <select id="getTotal" resultType="int">
+        select count(bno)
+        from
+            tbl_board
+    </select>
+
     <insert id="insert">
         <selectKey order="AFTER" keyProperty="bno" resultType="long">
             select last_insert_id()

@@ -14,6 +14,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        ${pageMaker}
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -39,6 +40,27 @@
                 </c:forEach>
                 </tbody>
             </table>
+            <div>
+                <ul class="pagination">
+                    <c:if test="${pageMaker.prev}">
+                    <li class="page-item">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    </c:if>
+
+                    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
+                        <li class="page-item ${cri.pageNum == num ?'active':''}">
+                            <a class="page-link" href="#">${num}</a>
+                        </li>
+                    </c:forEach>
+
+                    <c:if test="${pageMaker.next}">
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                    </c:if>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -73,12 +95,12 @@
         myModal.show();
     }
 
-    document.querySelector('.tbody').addEventListener("click",(e) => {
+    document.querySelector('.tbody').addEventListener("click", (e) => {
         const target = e.target.closest("tr")
         const bno = target.dataset.bno
         console.log(bno);
-        window.location=`/board/read/\${bno}`
-    },false)
+        window.location = `/board/read/\${bno}`
+    }, false)
 
 </script>
 <%@include file="../includes/end.jsp" %>

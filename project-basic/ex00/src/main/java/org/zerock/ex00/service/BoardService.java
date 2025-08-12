@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.ex00.domain.BoardVO;
+import org.zerock.ex00.domain.Criteria;
 import org.zerock.ex00.mappers.BoardMapper;
 
 import java.util.List;
@@ -16,6 +17,16 @@ import java.util.List;
 public class BoardService {
 
     private final BoardMapper boardMapper;
+
+    public List<BoardVO> getList(Criteria criteria) {
+        return boardMapper.getPage(criteria);
+    }
+
+
+    public int getTotal(Criteria criteria) {
+        return boardMapper.getTotal(criteria);
+    }
+
 
     public Long register(BoardVO boardVO) {
         log.info("----------------" + boardVO);
