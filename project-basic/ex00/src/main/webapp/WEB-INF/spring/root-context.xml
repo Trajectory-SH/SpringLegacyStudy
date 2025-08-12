@@ -27,7 +27,4 @@
         <property name="mapperLocations" value="classpath:mappers/*.xml"/>
     </bean>
     <mybatis-spring:scan base-package="org.zerock.ex00.mappers"/>
-
-
-
 </beans>
