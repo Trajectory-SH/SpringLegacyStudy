@@ -14,7 +14,10 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-        ${pageMaker}
+    <form id="actionForm" method="get" action="/board/list">
+        <input type="hidden" name="pageNum" value="${cri.pageNum}">
+        <input type="hidden" name="amount" value="${cri.amount}">
+    </form>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -44,19 +47,19 @@
                 <ul class="pagination">
                     <c:if test="${pageMaker.prev}">
                     <li class="page-item">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        <a class="page-link" href="${pageMaker.startPage - 1}" tabindex="-1">Previous</a>
                     </li>
                     </c:if>
 
                     <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
                         <li class="page-item ${cri.pageNum == num ?'active':''}">
-                            <a class="page-link" href="#">${num}</a>
+                            <a class="page-link" href="${num}">${num}</a>
                         </li>
                     </c:forEach>
 
                     <c:if test="${pageMaker.next}">
                     <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
+                        <a class="page-link" href="${pageMaker.endPage + 1}">Next</a>
                     </li>
                     </c:if>
                 </ul>
@@ -95,12 +98,63 @@
         myModal.show();
     }
 
+    const actionForm = document.querySelector("#actionForm")
+
     document.querySelector('.tbody').addEventListener("click", (e) => {
+
         const target = e.target.closest("tr")
         const bno = target.dataset.bno
-        console.log(bno);
-        window.location = `/board/read/\${bno}`
-    }, false)
 
+        const before = document.querySelector("#clonedActionForm")
+
+        if(before){
+            before.remove()
+        }
+
+        const clonedActionForm = actionForm.cloneNode(true)
+        clonedActionForm.setAttribute("action",`/board/read/\${bno}`)
+        clonedActionForm.setAttribute("id", "clonedActionForm")
+        console.log(clonedActionForm)
+
+        document.body.append(clonedActionForm)
+
+        clonedActionForm.submit()
+
+    },false)
+
+
+
+    //window.location을 이용한 페이지 이동
+  /*  document.querySelector(".pagination").addEventListener("click",evt => {
+
+        evt.preventDefault()
+        const target = evt.target
+        console.log(target)
+        const targetPage = target.getAttribute("href")
+
+        window.location=`/board/list?pageNum=\${targetPage}`
+
+    },false)*/
+
+    //form을 이용한 페이지 이동
+    /**
+     <form id="actionForm" method="get" action="/board/list">
+     <input type="hidden" name="pageNum" value="${cri.pageNum}">
+     <input type="hidden" name="amount" value="${cri.amount}">
+     </form>
+     */
+
+    document.querySelector(".pagination").addEventListener("click",evt => {
+
+        evt.preventDefault()
+        const target = evt.target
+        console.log(target)
+        const targetPage = target.getAttribute("href")
+
+        actionForm.setAttribute("action", "/board/list")
+        actionForm.querySelector("input[name ='pageNum']").value = targetPage
+        actionForm.submit()
+    },false)
+    
 </script>
 <%@include file="../includes/end.jsp" %>

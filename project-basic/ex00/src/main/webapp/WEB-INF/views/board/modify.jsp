@@ -4,7 +4,7 @@
 
 <%@include file="../includes/header.jsp" %>
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800" Read</h1></h1>
+<h1 class="h3 mb-2 text-gray-800" Read</h1></h1></h1>
 <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
     For more information about DataTables, please visit the <a target="_blank"
                                                                href="https://datatables.net">official DataTables
@@ -62,16 +62,22 @@
     </div>
 </div>
 
-
+<form id="listForm" action="board/list">
+    <input type="hidden" name="pageNum" value="${cri.pageNum}">
+    <input type="hidden" name="amount" value="${cri.amount}">
+</form>
 <%@include file="../includes/footer.jsp" %>
 
 <script>
     const bno = `${vo.bno}`
-
     const actionForm = document.querySelector("#actionForm")
+    const listForm = document.querySelector("#listForm")
+
 
     document.querySelector(".btnList").addEventListener("click",(e)=>{
-        window.location = "/board/list"
+        e.preventDefault()
+        e.stopPropagation()
+        listForm.submit()
     },false)
 
     document.querySelector(".btnModify").addEventListener("click",(e)=>{

@@ -44,6 +44,7 @@ public class BoardController {
     //한 메서드를 이용해서 여러가지 URL을 처리 할 수 있다.
     public String read(@PathVariable(name = "bno") Long bno,
                        @PathVariable(name = "job") String job,
+                       @ModelAttribute("cri") Criteria criteria,
                        Model model) {
         log.info("bno: {}", bno);
         log.info("job: {}", job);
