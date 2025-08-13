@@ -31,7 +31,7 @@ public class ReplyMapperTest {
 
         Long bno = 1566L;
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 32; i++) {
             ReplyVO replyVO = ReplyVO.builder()
                     .bno(bno)
                     .replyText("Sample Reply Test")
@@ -40,6 +40,36 @@ public class ReplyMapperTest {
 
             log.info(replyMapper.insert(replyVO));
         }
+    }
+
+    @Test
+    public void testSelectOne() {
+        log.info(replyMapper.selectOne(20L));
+
+    }
+
+    @Test
+    public void testUpdateOne() {
+
+        ReplyVO replyVO = ReplyVO.builder()
+                .rno(107L)
+                .replyText("Update51")
+                .build();
+
+        log.info(replyMapper.updateOne(replyVO));
+    }
+
+    @Test
+    public void testGetList() {
+
+        Criteria criteria = new Criteria();
+        replyMapper.getList(criteria, 1566L).forEach(replyVO -> log.info(replyVO));
+    }
+
+    @Test
+    public void testGetTotal() {
+        Long bno = 1569L;
+        log.info(replyMapper.getTotal(null, bno));
     }
 
 }

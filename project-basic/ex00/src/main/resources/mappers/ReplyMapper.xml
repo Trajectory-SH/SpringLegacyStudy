@@ -23,8 +23,8 @@
     <update id="updateOne">
         update tbl_reply
         set
-        replyText = #{replyText} ,
-        updateDate = now()
+            replyText = #{replyText} ,
+            updateDate = now()
         where rno = #{rno}
     </update>
 

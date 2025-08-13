@@ -72,9 +72,11 @@
 </form>
 
 <%@include file="../includes/footer.jsp"%>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
 
 <script>
-
     const actionForm = document.querySelector("#actionForm")
     const bno = '${vo.bno}'
 
@@ -87,6 +89,22 @@
         actionForm.setAttribute("action", `/board/modify/\${bno}`)
         actionForm.submit()
     }, false)
+</script>
+<script>
+    const boardBno = ${vo.bno}
+    // console.log(axios)
+    let pageNum = 1
+    let amount = 10
+
+    const getList = async () => {
+        const res = await axios.get(`/reply/list/\${boardBno}`,{
+            params:{pageNum,amount}
+        })
+        console.log(res)
+    }
+    getList()
+
+
 </script>
 
 <%@include file="../includes/end.jsp"%>

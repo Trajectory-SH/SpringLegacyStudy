@@ -34,10 +34,6 @@ public class BoardService {
 
         return boardVO.getBno();
     }
-    public List<BoardVO> list() {
-        return boardMapper.getList();
-    }
-
     public BoardVO get(Long bno) {
         return boardMapper.select(bno);
     }
