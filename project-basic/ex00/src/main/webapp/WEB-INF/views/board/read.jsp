@@ -58,6 +58,22 @@
         </div>
     </div>
 </div>
+<div class="card shadow mb-4">
+    <ul class="list-group replyList">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Cras justo odio
+            <span class="badge badge-primary badge-pill">14</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Dapibus ac facilisis in
+            <span class="badge badge-primary badge-pill">2</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Morbi leo risus
+            <span class="badge badge-primary badge-pill">1</span>
+        </li>
+    </ul>
+</div>
 
 
 <form id="actionForm" method="get" action="/board/list">
@@ -92,19 +108,22 @@
 </script>
 <script>
     const boardBno = ${vo.bno}
-    // console.log(axios)
+    const replyList = document.querySelector(".replyList")
     let pageNum = 1
     let amount = 10
 
-    const getList = async () => {
+    const getList = async (pageParam,amountParam) => {
+
+        const pageNum = pageParam || 1
+        const amount  = amountParam || 10
         const res = await axios.get(`/reply/list/\${boardBno}`,{
             params:{pageNum,amount}
         })
-        console.log(res)
+        const data = res.data
+        const pageDto = data.pageDto
+        const replyList = data.replyList
     }
     getList()
-
-
 </script>
 
 <%@include file="../includes/end.jsp"%>
