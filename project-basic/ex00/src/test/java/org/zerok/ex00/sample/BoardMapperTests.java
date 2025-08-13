@@ -23,7 +23,9 @@ public class BoardMapperTests {
 
     @Test
     public void test1() {
-        log.info(boardMapper);
+        log.info("=======================");
+        log.info("BoardMapper"+boardMapper.getClass());
+        log.info("=======================");
     }
 
     @Test

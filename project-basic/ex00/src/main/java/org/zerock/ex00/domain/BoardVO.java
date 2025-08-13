@@ -5,22 +5,6 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/*
-create table tbl_board
-(
-    bno        int auto_increment
-        primary key,
-    title      varchar(500)                          not null,
-    content    varchar(2000)                         not null,
-    writer     varchar(100)                          not null,
-    regDate    timestamp default current_timestamp() null,
-    updateDate timestamp default current_timestamp() null
-);
-
-alter table tbl_board add column  delflag boolean default false;
-
-
- */
 @Data
 public class BoardVO {
 
