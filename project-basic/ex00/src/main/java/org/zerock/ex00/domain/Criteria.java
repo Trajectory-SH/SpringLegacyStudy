@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Arrays;
 
 @Data
-public class Criteria {
+public class  Criteria {
 
     private int pageNum = 1;
     private int amount = 10;

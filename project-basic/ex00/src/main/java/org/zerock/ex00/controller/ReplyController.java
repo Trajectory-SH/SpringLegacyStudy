@@ -64,11 +64,9 @@ public class ReplyController {
     public Map<String, Object> getListOfBoard(@PathVariable("bno") Long bno,
                                               @ModelAttribute Criteria cri) {
 
-        log.info("bno = {}", bno);
-        log.info(cri);
-        log.info("===================================");
 
         List<ReplyVO> replyList = replyService.getListWithBno(cri, bno);
+
         int total = replyService.getTotalWithBno(cri, bno);
 
         PageDto pageDto = new PageDto(cri, total);
