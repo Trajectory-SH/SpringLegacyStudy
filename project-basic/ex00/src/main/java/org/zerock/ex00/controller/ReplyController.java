@@ -54,9 +54,10 @@ public class ReplyController {
         log.info("---------------------");
 
         Long rno = replyService.register(replyVO);
+        int replyCount = replyService.getReplyCountOfBoard(replyVO.getBno());
         // SELECT LAST_INSERT_ID() -> 마지막으로 AutoIncrement된 ID를 Return
 
-        return Map.of("RNO", rno);
+        return Map.of("RNO", rno,"COUNT",(long) replyCount);
     }
 
 

@@ -81,6 +81,39 @@
     </li>
 </ul>
 
+<div class="modal" id="replyModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Reply Text</span>
+                    </div>
+                    <input type="text" name="replyText" class="form-control" >
+                </div>
+                <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Replyer</span>
+                    </div>
+                    <input type="text" name="replyer" class="form-control" >
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id='replyModBtn' type="button" class="btn btn-warning">Modify</button>
+                <button id='replyDelBtn' type="button" class="btn btn-danger">Delete</button>
+                <button id='replyRegBtn' type="button" class="btn btn-primary">Register</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <form id="actionForm" method="get" action="/board/list">
     <input type="hidden" name="pageNum" value="${cri.pageNum}">
     <input type="hidden" name="amount" value="${cri.amount}">
@@ -125,13 +158,9 @@
         const pageNum = pageParam || 1
         const amount = amountParam || 10
 
-
         const res = await axios.get(`/reply/list/\${boardBno}`, {
-
            params: {pageNum, amount}
-
         })
-
 
         const data = res.data
         const pageDto = data.pageDto
@@ -140,55 +169,49 @@
         printReplyList(pageDto, replyList)
     }
 
+    const registerReply = async (replyObj) =>{
+        const res = await axios.post('/reply/register',replyObj)
 
+        const data= res.data
 
+        console.log(data)
 
-    const printReplyList = (pageDto, replyList) =>
+        const lastPage = Math.ceil(data.COUNT / 10.0)
+        getList(lastPage)
+
+    }
+
+    const printReplyList = (pageDto, replyList) =>{
 
         // “리스트를 초기화하고, 새 HTML을 만들 준비” 하는 단계
         replyUL.innerHTML = ""
-
         let str = ''
         for (const reply of replyList) {
-
             const {rno, replyText, replyer} = reply
-
             str += `
-              <li data-rno="\${rno}" class="list-group-item d-flex justify-content-between align-items-center">
-
-
+              <li class="list-group-item d-flex justify-content-between align-items-center">
                 \${rno} --- \${replyText}
-
-
-
-
                 <span class="badge badge-primary badge-pill">\${replyer}</span>
               </li>`
         }
         replyUL.innerHTML = str
 
-        //-----------------------//
-
-
         const {startPage, endPage, prev, next} = pageDto;
         const pageNum =pageDto.cri.pageNum
 
-
         let pageStr =``
-        //prev
         if (prev) {
             pageStr+=  ` <li class="page-item ">
                                 <a class="page-link" href="\${startPage-1}" tabindex="-1">Previous</a>
                          </li>`
         }
-
         for (let i = startPage; i <= endPage; i++) {
             pageStr += `<li class="page-item \${i==pageNum?'active':''}">
-        <a class="page-link" href="\${i}">\${i}</a>
-    </li>`
+                              <a class="page-link" href="\${i}">\${i}</a>
+                        </li>`
         }
         if (next) {
-            pageStr+=  ` <li class="page-item ">
+            pageStr += ` <li class="page-item ">
                                 <a class="page-link" href="\${endPage+1}" tabindex="-1">Next</a>
                          </li>`
         }
@@ -196,20 +219,44 @@
     }
 
     pageUL.addEventListener("click",(e)=>{
-        e.preventDefault()
         e.stopPropagation()
+        const link = e.target.closest('a.page-link');
+        // 페이지네이션 영역 내의 <a>가 아니면 무시
+        if (!link || !pageUL.contains(link)) return;
 
-
-        const target = e.target
-        const pageNum = target.getAttribute("href")
-        console.log(pageNum)
-
+        e.preventDefault(); // 실제 링크 이동 막기
+        // href에서 페이지 번호 추출
+        const pageNum = parseInt(link.getAttribute("href"), 10);
         getList(pageNum)
+    },false)
+
+    getList()
+
+    const replyModal = new bootstrap.Modal(document.querySelector('#replyModal'))
+
+    const replyTextInput = document.querySelector("input[name='replyText']");
+    const replyerInput = document.querySelector("input[name='replyer']");
+
+    replyModal.show();
+
+    document.querySelector("#replyRegBtn").addEventListener("click",evt => {
+        evt.preventDefault()
+        evt.stopPropagation()
+
+        const replyObj = {replyText : replyTextInput.value,
+                          replyer: replyerInput.value,
+                          bno: boardBno
+        }
+        //비동기함수이기 때문에 항상 promise를 return한다. -> then이라는 것을 사용할 수 있음(modal창 닫기에 활용)
+        //여기서 비동기 함수이기 때문에 result값은 undefined가 나온다.
+        registerReply(replyObj).then(result=>{
+            replyModal.hide()
+        })
     },false)
 
 
 
-    getList()
+
 </script>
 
 <%@include file="../includes/end.jsp" %>
