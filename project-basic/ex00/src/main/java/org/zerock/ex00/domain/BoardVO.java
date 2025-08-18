@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Data
 public class BoardVO {
@@ -12,6 +13,7 @@ public class BoardVO {
     private String title;
     private String content;
     private String writer;
+    private List<AttachVO> attachVOList;
 
     private boolean delFlag;
 
