@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SimpleTimeZone;
 import java.util.UUID;
 
 @Component
@@ -23,13 +24,11 @@ public class UpDownUtil {
 
     private final String UPLOAD = "/Users/kronos0697/Trajectory/JAVA/SpringLegacyStudy";
 
-
     public List<AttachVO> upload(MultipartFile[] files) {//파일데이터 의미 -> 컨트롤러가 수령
 
             if(files == null || files.length == 0){
                 return null;
             }
-
 
             List<AttachVO> list = new ArrayList<>();
 
@@ -76,6 +75,21 @@ public class UpDownUtil {
 
             }//파일 업로드 처리 for
             return list;
+    }
+
+    public void deleteFiles(String[] fileNames) {
+
+        if (fileNames == null || fileNames.length == 0) {
+            return;
+        }
+
+        for (String fileName : fileNames) {
+            File origianlFile = new File(UPLOAD + File.separator + fileName);
+            File thumbFile = new File(UPLOAD + File.separator+"s_" + fileName);
+
+            origianlFile.delete();
+            thumbFile.delete();
+        }
     }
 
 

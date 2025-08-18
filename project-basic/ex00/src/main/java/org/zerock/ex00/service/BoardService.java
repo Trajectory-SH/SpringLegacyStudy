@@ -52,9 +52,26 @@ public class BoardService {
         return boardMapper.select(bno);
     }
 
-    public boolean modify(BoardVO vo) {
+    public boolean modify(BoardVO vo, Long[] attachFileNums) {
 
-        return boardMapper.update(vo) == 1;
+        int count = boardMapper.update(vo);
+
+        List<AttachVO> attachVOList = vo.getAttachVOList();
+
+        if (attachFileNums != null && attachFileNums.length > 0) {
+            boardMapper.deleteAttachFiles(attachFileNums);
+        }
+
+
+        if (attachVOList != null && !(attachVOList.isEmpty())) {
+
+            for (AttachVO attach : attachVOList) {
+                attach.setBno(vo.getBno());
+                boardMapper.insertAttach(attach);
+            }
+        }
+
+        return count == 1;
     }
 
     public boolean remove(Long bno) {

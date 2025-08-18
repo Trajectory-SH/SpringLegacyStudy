@@ -120,6 +120,8 @@ public class BoardController {
     @PostMapping("/remove/{bno}")
     public String remove(
             @PathVariable(name="bno") Long bno,
+            @RequestParam(value = "anos",required = false)Long[] anos,
+            @RequestParam(value = "fullNames",required = false)String[] fullNames,
             RedirectAttributes rttr){
 
         BoardVO boardVO = new BoardVO();
@@ -129,8 +131,10 @@ public class BoardController {
         boardVO.setDelFlag(true);
 
         log.info("boardVO: " + boardVO);
+        
+        boardService.modify(boardVO,anos);
 
-        boardService.modify(boardVO);
+        upDownUtil.deleteFiles(fullNames);
 
         rttr.addFlashAttribute("result", boardVO.getBno());
 
@@ -141,14 +145,25 @@ public class BoardController {
     @PostMapping("/modify/{bno}")
     public String modify(
             @PathVariable(name="bno") Long bno,
+            @RequestParam(value = "files", required = false) MultipartFile[] files,
+            @RequestParam(value = "anos",required = false)Long[] anos,
+            @RequestParam(value = "fullNames",required = false)String[] fullNames,
             BoardVO boardVO,
             RedirectAttributes rttr){
 
         boardVO.setBno(bno);
 
+        List<AttachVO> attachVOList = upDownUtil.upload(files);
+        if (attachVOList != null && attachVOList.size() > 0) {
+            boardVO.setAttachVOList(attachVOList);
+        }
+
+
         log.info("boardVO: " + boardVO);
 
-        boardService.modify(boardVO);
+        boardService.modify(boardVO,anos);
+
+        upDownUtil.deleteFiles(fullNames);
 
         rttr.addFlashAttribute("result", boardVO.getBno());
 

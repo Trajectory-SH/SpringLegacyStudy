@@ -1,5 +1,6 @@
 package org.zerock.ex00.mappers;
 
+import org.apache.ibatis.annotations.Param;
 import org.zerock.ex00.domain.AttachVO;
 import org.zerock.ex00.domain.BoardVO;
 import org.zerock.ex00.domain.Criteria;
@@ -19,5 +20,7 @@ public interface BoardMapper {
     int update(BoardVO boardVO);
 
     int insertAttach(AttachVO attachVO);
+
+    void deleteAttachFiles(@Param("anos")Long[] anos);
 
 }

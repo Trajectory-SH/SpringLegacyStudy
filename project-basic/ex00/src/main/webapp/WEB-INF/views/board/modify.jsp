@@ -2,13 +2,14 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/header.jsp" %>
 
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Modify</h1>
 <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
     For more information about DataTables, please visit the <a target="_blank"
-                                                               href="https://datatables.net">official DataTables documentation</a>.</p>
+                                                               href="https://datatables.net">official DataTables
+        documentation</a>.</p>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -16,19 +17,19 @@
         <h6 class="m-0 font-weight-bold text-primary">Board Modify</h6>
     </div>
     <div class="card-body">
-        <form id="actionForm" action="/board/modify" method="post">
+        <form id="actionForm" action="/board/modify" method="post" enctype="multipart/form-data">
 
             <div class="form-group input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Bno</span>
                 </div>
-                <input type="text" name="bno" class="form-control" value="<c:out value="${vo.bno}"/>"  readonly>
+                <input type="text" name="bno" class="form-control" value="<c:out value="${vo.bno}"/>" readonly>
             </div>
             <div class="form-group input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Title</span>
                 </div>
-                <input type="text" name="title" class="form-control"  value="<c:out value="${vo.title}"/>">
+                <input type="text" name="title" class="form-control" value="<c:out value="${vo.title}"/>">
             </div>
             <div class="form-group input-group input-group-lg">
                 <div class="input-group-prepend">
@@ -42,23 +43,53 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Writer</span>
                 </div>
-                <input type="text" class="form-control"  value="<c:out value="${vo.writer}"/>"  readonly>
+                <input type="text" class="form-control" value="<c:out value="${vo.writer}"/>" readonly>
             </div>
             <div class="form-group input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text">RegDate</span>
                 </div>
-                <input type="text" class="form-control"  value="<c:out value="${vo.regDate}"/>"  readonly>
+                <input type="text" class="form-control" value="<c:out value="${vo.regDate}"/>" readonly>
             </div>
 
-            <div class="float-right">
-                <button type="button" class="btn btn-info btnList" >LIST</button>
-                <button type="button" class="btn btn-warning btnModify" >MODIFY</button>
-                <button type="button" class="btn btn-danger btnRemove" >REMOVE</button>
+            <div class="form-group input-group input-group-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Files</span>
+                </div>
+                <input type="file" multiple
+                       name="files" class="form-control" >
             </div>
+            <div class="float-right">
+                <button type="button" class="btn btn-info btnList">LIST</button>
+                <button type="button" class="btn btn-warning btnModify">MODIFY</button>
+                <button type="button" class="btn btn-danger btnRemove">REMOVE</button>
+            </div>
+
+            <div class="deleteImages">
+
+
+            </div>
+
+
         </form>
     </div>
 </div>
+<div class="card">
+    <div class="attachList d-flex">
+        <c:if test="${vo.attachVOList != null && vo.attachVOList.size() > 0}">
+            <c:forEach items="${vo.attachVOList}" var="attach">
+                <c:if test="${attach.ano != null}">
+                    <div class="d-flex flex-column">
+                            <img src="/files/s_${attach.fullName}"/>
+                        <button class="btn btn-outline-dark removeImgBtn" data-ano="${attach.ano}" data-fullname="${attach.fullName}">x</button>
+
+                    </div>
+                </c:if>
+            </c:forEach>
+        </c:if>
+    </div>
+</div>
+
 
 <form id="listForm" action="/board/list">
     <input type="hidden" name="pageNum" value="${cri.pageNum}">
@@ -71,7 +102,7 @@
     </c:if>
 </form>
 
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../includes/footer.jsp" %>
 
 <script>
 
@@ -79,19 +110,19 @@
     const actionForm = document.querySelector("#actionForm")
     const listForm = document.querySelector("#listForm")
 
-    document.querySelector(".btnList").addEventListener("click",(e) => {
+    document.querySelector(".btnList").addEventListener("click", (e) => {
         e.preventDefault()
         e.stopPropagation()
 
         listForm.submit()
     }, false)
 
-    document.querySelector(".btnModify").addEventListener("click",(e) => {
+    document.querySelector(".btnModify").addEventListener("click", (e) => {
         e.preventDefault()
         e.stopPropagation()
 
-        actionForm.action =`/board/modify/\${bno}`
-        actionForm.mehtod ='post'
+        actionForm.action = `/board/modify/\${bno}`
+        actionForm.mehtod = 'post'
         actionForm.submit()
     }, false)
 
@@ -99,10 +130,56 @@
         e.preventDefault()
         e.stopPropagation()
 
+        //삭제해야 하는 파일들을 hidden 태그로 만들어준다.
+        const fileArr = document.querySelectorAll(".attachList button")
+
+        console.log(fileArr)
+
+        if(fileArr && fileArr.length > 0){
+
+            let str = ''
+
+            for (const btn of fileArr) {
+                const ano = btn.getAttribute("data-ano")
+                const fullName = btn.getAttribute("data-fullname")
+
+                str += `<input type='hidden' name='anos' value='\${ano}'> `
+                str += `<input type='hidden' name='fullNames' value='\${fullName}'> `
+
+            }//end for
+            document.querySelector(".deleteImages").innerHTML += str
+
+        }//end if
+
         actionForm.action =`/board/remove/\${bno}`
         actionForm.mehtod ='post'
         actionForm.submit()
     }, false)
+
+    document.querySelector(".attachList").addEventListener("click", (e) => {
+
+        const target = e.target
+
+        if(target.tagName !=='BUTTON'){
+            return
+        }
+
+        const ano = target.getAttribute("data-ano")
+        const fullName = target.getAttribute("data-fullname")
+
+        if(ano && fullName){
+            let str = ''
+            str += `<input type='hidden' name='anos' value='\${ano}'> `
+            str += `<input type='hidden' name='fullNames' value='\${fullName}'> `
+
+            console.log("ano ", ano, "fullName " , fullName)
+            target.closest("div").remove()
+
+            document.querySelector(".deleteImages").innerHTML += str
+        }
+
+
+    },false)
 </script>
 
-<%@include file="../includes/end.jsp"%>
+<%@include file="../includes/end.jsp" %>

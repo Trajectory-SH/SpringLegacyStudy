@@ -52,11 +52,24 @@
         </div>
         <div class="float-right">
             <button type="button" class="btn btn-info btnList">LIST</button>
-
             <c:if test="${!vo.delFlag}">
                 <button type="button" class="btn btn-warning btnModify">MODIFY</button>
             </c:if>
         </div>
+    </div>
+
+    <div class="attachList d-flex">
+        <c:if test="${vo.attachVOList != null && vo.attachVOList.size() > 0}">
+            <c:forEach items="${vo.attachVOList}" var="attach">
+                <c:if test="${attach.ano != null}">
+                    <div>
+                        <a href="/files/${attach.fullName}" target="_blank">
+                            <img src="/files/s_${attach.fullName}"/>
+                        </a>
+                    </div>
+                </c:if>
+            </c:forEach>
+        </c:if>
     </div>
 </div>
 <div class="card shadow mb-4">
@@ -268,7 +281,7 @@
         return res.data
     }
 
-    const deleteReply = async (rno)=>{
+    const deleteReply = async (rno) => {
 
         const res = await axios.delete(`/reply/\${rno}`)
 
@@ -277,13 +290,10 @@
 
     const modifyReply = async (replyObj) => {
 
-        const res = await axios.put(`/reply/\${currentRno}`,replyObj)
+        const res = await axios.put(`/reply/\${currentRno}`, replyObj)
 
         return res.data
     };
-
-
-
 
 
     // replyModal.show()
@@ -304,7 +314,7 @@
         })
     }, false)
     document.querySelector("#replyDelBtn").addEventListener("click", evt => {
-        deleteReply(currentRno).then(result=>{
+        deleteReply(currentRno).then(result => {
             alert('댓글이 삭제되었습니다.')
             replyModal.hide()
             getList();
@@ -318,15 +328,12 @@
             replyerInput: replyerInput.value,
             bno: boardBno
         }
-        modifyReply(replyObj).then(result=>{
+        modifyReply(replyObj).then(result => {
             alert("댓글이 수정되었습니다.")
             replyModal.hide()
             getList(currentPage)
         })
     }, false)
-
-
-
 
 
 </script>

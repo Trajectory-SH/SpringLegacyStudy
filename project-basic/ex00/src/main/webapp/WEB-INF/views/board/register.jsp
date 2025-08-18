@@ -40,7 +40,8 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Files</span>
                 </div>
-                <input type="file" name="files" class="form-control" >
+                <input type="file" multiple
+                       name="files" class="form-control" >
             </div>
             <div class="input-group input-group-lg">
                 <button type="submit" class="btn btn-primary submitBtn" >SUBMIT</button>
