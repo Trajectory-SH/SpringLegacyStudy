@@ -5,11 +5,15 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.ex00.domain.BoardVO;
 import org.zerock.ex00.domain.Criteria;
 import org.zerock.ex00.domain.PageDto;
 import org.zerock.ex00.service.BoardService;
+import org.zerock.ex00.util.UpDownUtil;
+
+import java.util.Arrays;
 
 @Controller
 @Log4j2
@@ -18,6 +22,7 @@ import org.zerock.ex00.service.BoardService;
 public class BoardController {
 
     private final BoardService boardService;
+    private final UpDownUtil upDownUtil;
     //list
 //  @GetMapping("/list")
 //  public void list(Model model){
@@ -83,19 +88,25 @@ public class BoardController {
 
     @GetMapping("/register")
     public void register() {
-
     }
 
     @PostMapping("/register")
-    public String registerPost(BoardVO boardVO, RedirectAttributes rttr){
+    public String registerPost(BoardVO boardVO,
+                               @RequestParam(value = "files", required = false) MultipartFile[] files,
+                               RedirectAttributes rttr) {
 
-        log.info("boardVO: " + boardVO);
+        /*log.info("boardVO: " + boardVO);
 
         Long bno = boardService.register(boardVO);
 
         log.info("bno: " + bno);
 
         rttr.addFlashAttribute("result", bno);
+*/
+        log.info("-----------------------------");
+        log.info(Arrays.toString(files));
+
+        upDownUtil.upload(files);
 
         return "redirect:/board/list";
     }

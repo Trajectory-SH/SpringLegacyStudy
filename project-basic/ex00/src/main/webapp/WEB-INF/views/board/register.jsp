@@ -17,7 +17,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Board Register</h6>
     </div>
     <div class="card-body">
-        <form action="/board/register" method="post">
+        <form id="registerForm" action="/board/register" method="post" enctype="multipart/form-data">
             <div class="form-group input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Title</span>
@@ -36,8 +36,14 @@
                 </div>
                 <input type="text" name="writer" class="form-control" >
             </div>
+            <div class="form-group input-group input-group-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Files</span>
+                </div>
+                <input type="file" name="files" class="form-control" >
+            </div>
             <div class="input-group input-group-lg">
-                <button type="submit" class="btn btn-primary" >SUBMIT</button>
+                <button type="submit" class="btn btn-primary submitBtn" >SUBMIT</button>
 
             </div>
         </form>
@@ -45,12 +51,30 @@
     </div>
 </div>
 
-
-
 <%@include file="../includes/footer.jsp"%>
 
 <script>
+    const formObj = document.querySelector("#registerForm");
+    document.querySelector(".submitBtn").addEventListener("click",e=>{
+        e.stopPropagation()
+        e.preventDefault()
 
+        //파일 확장자, 사이즈 체크
+        const fileReg = /(.*?)\.(gif|png|jpg|jpeg|bmp)$/;
+        const fileInput = document.querySelector("input[name ='files']");
+
+        const fileArr = fileInput.files;
+        if (fileArr && fileArr.length > 0) {
+            for (const file of fileArr) {
+                if (!file.name.match(fileReg)) {
+                    alert("첨부파일 확장자가 잘못되었습니다.")
+                    return;
+                }
+                console.dir(fileInput);
+            }
+        }
+        formObj.submit();
+    },false)
 </script>
 
 <%@include file="../includes/end.jsp"%>

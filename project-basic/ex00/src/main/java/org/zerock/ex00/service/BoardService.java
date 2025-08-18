@@ -18,6 +18,10 @@ public class BoardService {
 
     private final BoardMapper boardMapper;
 
+    public List<BoardVO> list() {
+        return boardMapper.getList();
+    }
+
     public List<BoardVO> getList(Criteria criteria) {
         return boardMapper.getPage(criteria);
     }

@@ -1,0 +1,61 @@
+package org.zerock.ex00.util;
+
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
+import net.coobird.thumbnailator.Thumbnails;
+import org.apache.ibatis.javassist.bytecode.ExceptionsAttribute;
+import org.springframework.stereotype.Component;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.UUID;
+
+@Component
+@Log4j2
+public class UpDownUtil {
+
+    private final String UPLOAD = "/Users/kronos0697/Trajectory/JAVA/SpringLegacyStudy";
+
+
+    public void upload(MultipartFile[] files) {//파일데이터 의미 -> 컨트롤러가 수령
+
+        if (files == null || files.length == 0) {
+            return;
+        }
+        for (MultipartFile file : files) {
+            if (file.getSize() == 0) {
+                continue;//처리 할 것이 없으니 빼버린다.
+            }
+
+            String filename = file.getOriginalFilename();
+            String uuid = UUID.randomUUID().toString();
+
+            String saveFileName = uuid + "_" + filename;
+
+            //jpg.gif.png.bmp
+            String suffix = filename.substring(filename.lastIndexOf(".") + 1);
+
+            String regExp = "^(jpg|jpeg|JPG|JPEG|png|PNG|gif|GIF|bmp|BMP)";
+            if (!suffix.matches(regExp)) {
+                continue;
+            }
+
+            try (
+                    InputStream in = file.getInputStream();
+                    OutputStream out = new FileOutputStream(UPLOAD + File.separator + saveFileName)
+            ) {
+                FileCopyUtils.copy(in, out);
+                Thumbnails.of(new File(UPLOAD + File.separator + saveFileName)).size(200, 200)
+                        .toFile(UPLOAD + File.separator + "s_" + saveFileName);
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+        }//파일 업로드 처리
+    }
+
+
+}
