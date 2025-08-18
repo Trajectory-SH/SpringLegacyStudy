@@ -37,6 +37,11 @@ dependencies {
 
     implementation("org.springframework:spring-jdbc:5.3.27")
     implementation("org.springframework:spring-tx:5.3.27")
+    implementation 'org.springframework:spring-aop:5.3.27'
+    
+    //runtimeOnly로 설정하면 테스트 환경에서 실행이 불가능하다.
+    implementation 'org.aspectj:aspectjrt:1.9.8'
+    implementation 'org.aspectj:aspectjweaver:1.9.8'
 
 
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
@@ -65,6 +70,8 @@ dependencies {
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1'
+
+
 
 }
 

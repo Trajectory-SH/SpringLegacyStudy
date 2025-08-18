@@ -46,9 +46,7 @@ public class BoardController {
 
         log.info(list);
         log.info("리스트 출력");
-        log.info("리스트 출력");
-        log.info("리스트 출력");
-        log.info("리스트 출력");
+
 
         model.addAttribute("list",list);
 

@@ -95,13 +95,13 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Reply Text</span>
                     </div>
-                    <input type="text" name="replyText" class="form-control" >
+                    <input type="text" name="replyText" class="form-control">
                 </div>
                 <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Replyer</span>
                     </div>
-                    <input type="text" name="replyer" class="form-control" >
+                    <input type="text" name="replyer" class="form-control">
                 </div>
             </div>
             <div class="modal-footer">
@@ -146,7 +146,8 @@
 
 
 <script>
-    const boardBno = ${vo.bno}
+    const boardBno =
+    ${vo.bno}
     const replyUL = document.querySelector(".replyList")
     const pageUL = document.querySelector(".pagination")
 
@@ -159,7 +160,7 @@
         const amount = amountParam || 10
 
         const res = await axios.get(`/reply/list/\${boardBno}`, {
-           params: {pageNum, amount}
+            params: {pageNum, amount}
         })
 
         const data = res.data
@@ -169,10 +170,10 @@
         printReplyList(pageDto, replyList)
     }
 
-    const registerReply = async (replyObj) =>{
-        const res = await axios.post('/reply/register',replyObj)
+    const registerReply = async (replyObj) => {
+        const res = await axios.post('/reply/register', replyObj)
 
-        const data= res.data
+        const data = res.data
 
         console.log(data)
 
@@ -181,7 +182,7 @@
 
     }
 
-    const printReplyList = (pageDto, replyList) =>{
+    const printReplyList = (pageDto, replyList) => {
 
         // “리스트를 초기화하고, 새 HTML을 만들 준비” 하는 단계
         replyUL.innerHTML = ""
@@ -189,7 +190,8 @@
         for (const reply of replyList) {
             const {rno, replyText, replyer} = reply
             str += `
-              <li class="list-group-item d-flex justify-content-between align-items-center">
+              <li data-rno="\${rno}" class="list-group-item d-flex justify-content-between align-items-center">
+
                 \${rno} --- \${replyText}
                 <span class="badge badge-primary badge-pill">\${replyer}</span>
               </li>`
@@ -197,11 +199,11 @@
         replyUL.innerHTML = str
 
         const {startPage, endPage, prev, next} = pageDto;
-        const pageNum =pageDto.cri.pageNum
+        const pageNum = pageDto.cri.pageNum
 
-        let pageStr =``
+        let pageStr = ``
         if (prev) {
-            pageStr+=  ` <li class="page-item ">
+            pageStr += ` <li class="page-item ">
                                 <a class="page-link" href="\${startPage-1}" tabindex="-1">Previous</a>
                          </li>`
         }
@@ -218,7 +220,7 @@
         pageUL.innerHTML = pageStr
     }
 
-    pageUL.addEventListener("click",(e)=>{
+    pageUL.addEventListener("click", (e) => {
         e.stopPropagation()
         const link = e.target.closest('a.page-link');
         // 페이지네이션 영역 내의 <a>가 아니면 무시
@@ -227,32 +229,102 @@
         e.preventDefault(); // 실제 링크 이동 막기
         // href에서 페이지 번호 추출
         const pageNum = parseInt(link.getAttribute("href"), 10);
+        currentPage = pageNum
         getList(pageNum)
-    },false)
+    }, false)
+
+    //현재 댓글 페이지 번호
+    let currentPage = 1;
+    let currentRno = 0;
+
+    replyUL.addEventListener("click", e => {
+        e.stopPropagation()
+        const targetReply = e.target
+        console.log(targetReply)
+        const rno = targetReply.getAttribute("data-rno")
+        currentRno = rno;
+        console.log("rno :" + rno);
+        console.log("currentPage :" + currentPage);
+        //result값은 async 메서드를 호출했기 때문에 Promise가 된다.
+        getReply(currentRno).then(result => {
+            replyTextInput.value = result.replyText
+            replyerInput.value = result.replyer
+            replyModal.show()
+        })
+
+    }, false)
 
     getList()
 
     const replyModal = new bootstrap.Modal(document.querySelector('#replyModal'))
-
     const replyTextInput = document.querySelector("input[name='replyText']");
     const replyerInput = document.querySelector("input[name='replyer']");
 
-    replyModal.show();
 
-    document.querySelector("#replyRegBtn").addEventListener("click",evt => {
+    const getReply = async (rno) => {
+
+        const res = await axios.get(`/reply/\${rno}`)
+
+        return res.data
+    }
+
+    const deleteReply = async (rno)=>{
+
+        const res = await axios.delete(`/reply/\${rno}`)
+
+        return res.data //{Result : true}
+    }
+
+    const modifyReply = async (replyObj) => {
+
+        const res = await axios.put(`/reply/\${currentRno}`,replyObj)
+
+        return res.data
+    };
+
+
+
+
+
+    // replyModal.show()
+
+    document.querySelector("#replyRegBtn").addEventListener("click", evt => {
         evt.preventDefault()
         evt.stopPropagation()
 
-        const replyObj = {replyText : replyTextInput.value,
-                          replyer: replyerInput.value,
-                          bno: boardBno
+        const replyObj = {
+            replyText: replyTextInput.value,
+            replyer: replyerInput.value,
+            bno: boardBno
         }
         //비동기함수이기 때문에 항상 promise를 return한다. -> then이라는 것을 사용할 수 있음(modal창 닫기에 활용)
         //여기서 비동기 함수이기 때문에 result값은 undefined가 나온다.
-        registerReply(replyObj).then(result=>{
+        registerReply(replyObj).then(result => {
             replyModal.hide()
         })
-    },false)
+    }, false)
+    document.querySelector("#replyDelBtn").addEventListener("click", evt => {
+        deleteReply(currentRno).then(result=>{
+            alert('댓글이 삭제되었습니다.')
+            replyModal.hide()
+            getList();
+        })
+    }, false)
+    document.querySelector("#replyModBtn").addEventListener("click", evt => {
+        console.log("replyText:" + replyTextInput);
+        console.log("replyer:" + replyerInput);
+        const replyObj = {
+            replyText: replyTextInput.value,
+            replyerInput: replyerInput.value,
+            bno: boardBno
+        }
+        modifyReply(replyObj).then(result=>{
+            alert("댓글이 수정되었습니다.")
+            replyModal.hide()
+            getList(currentPage)
+        })
+    }, false)
+
 
 
 

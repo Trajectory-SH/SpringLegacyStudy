@@ -57,7 +57,7 @@ public class ReplyController {
         int replyCount = replyService.getReplyCountOfBoard(replyVO.getBno());
         // SELECT LAST_INSERT_ID() -> 마지막으로 AutoIncrement된 ID를 Return
 
-        return Map.of("RNO", rno,"COUNT",(long) replyCount);
+        return Map.of("RNO", rno, "COUNT", (long) replyCount);
     }
 
 
@@ -72,5 +72,12 @@ public class ReplyController {
 
         PageDto pageDto = new PageDto(cri, total);
         return Map.of("replyList", replyList, "pageDto", pageDto);
+    }
+
+    @GetMapping("/txtest")
+    public String[] get(String str) {
+        replyService.insertTwo(str);
+
+        return new String[]{"a", "b"};
     }
 }
