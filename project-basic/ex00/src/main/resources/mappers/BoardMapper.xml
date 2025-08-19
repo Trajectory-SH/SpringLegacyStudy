@@ -105,16 +105,4 @@
 
     </delete>
 
-    <delete id="deleteAttachFiles">
-        delete from tbl_attach
-        <where>
-            <foreach collection="anos" item="ano" open="ano in ("
-                     close=")" separator=",">
-                #{ano}
-            </foreach>
-
-        </where>
-
-    </delete>
-
 </mapper>

@@ -52,25 +52,23 @@ public class BoardService {
         return boardMapper.select(bno);
     }
 
-    public boolean modify(BoardVO vo, Long[] attachFileNums) {
+    public boolean modify(BoardVO vo, Long[] attachFileNums){
 
-        int count = boardMapper.update(vo);
+        int count =  boardMapper.update(vo);
 
         List<AttachVO> attachVOList = vo.getAttachVOList();
 
-        if (attachFileNums != null && attachFileNums.length > 0) {
+        if(attachFileNums != null && attachFileNums.length > 0){
+            //한번에 boardMapper에서 삭제 처리
             boardMapper.deleteAttachFiles(attachFileNums);
         }
 
-
-        if (attachVOList != null && !(attachVOList.isEmpty())) {
-
-            for (AttachVO attach : attachVOList) {
+        if(attachVOList != null && attachVOList.size() > 0 && count == 1){
+            for (AttachVO attach: attachVOList) {
                 attach.setBno(vo.getBno());
                 boardMapper.insertAttach(attach);
             }
         }
-
         return count == 1;
     }
 

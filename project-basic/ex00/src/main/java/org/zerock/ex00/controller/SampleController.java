@@ -16,4 +16,20 @@ public class SampleController {
     public void basic() {
         log.info("basic---------------");
     }
+
+
+    @GetMapping("/all")
+    public void all() {
+        log.info("All-------------");
+    }
+
+    @GetMapping("/manager")
+    public void manager() {
+        log.info("manager===========");
+    }
+
+    @GetMapping("/admin")
+    public void admin() {
+        log.info("admin===========");
+    }
 }

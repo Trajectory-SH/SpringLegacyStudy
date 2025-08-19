@@ -13,13 +13,16 @@
 
     <!-- Logger 설정 -->
     <Loggers>
-        <Logger name="com.zaxxer" level="DEBUG" additivity="false">
+        <Logger name="com.zaxxer" level="INFO" additivity="false">
             <AppenderRef ref="console"/>
         </Logger>
-        <Logger name="org.zerock" level="TRACE" additivity="false">
+        <Logger name="org.zerock" level="INFO" additivity="false">
             <AppenderRef ref="console"/>
         </Logger>
-        <Logger name="javax.sql" level="TRACE" additivity="false">
+        <Logger name="javax.sql" level="INFO" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.springframework.security" level="TRACE" additivity="false">
             <AppenderRef ref="console"/>
         </Logger>
         <Root level="INFO">

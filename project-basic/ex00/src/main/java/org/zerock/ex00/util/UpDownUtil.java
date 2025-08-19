@@ -3,7 +3,6 @@ package org.zerock.ex00.util;
 import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnails;
-import org.apache.ibatis.javassist.bytecode.ExceptionsAttribute;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +14,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SimpleTimeZone;
 import java.util.UUID;
 
 @Component
@@ -37,13 +35,11 @@ public class UpDownUtil {
                 if(file.getSize() == 0){
                     continue;
                 }
-
                 String fileName = file.getOriginalFilename();
                 String uuid = UUID.randomUUID().toString();
 
                 String saveFileName = uuid +"_" + fileName;
 
-                //jpg,gif,png,bmp
                 String suffix = fileName.substring(fileName.lastIndexOf(".")+1);
 
                 String regExp = "^(jpg|jpeg|JPG|JPEG|png|PNG|gif|GIF|bmp|BMP)";
@@ -91,6 +87,4 @@ public class UpDownUtil {
             thumbFile.delete();
         }
     }
-
-
 }
