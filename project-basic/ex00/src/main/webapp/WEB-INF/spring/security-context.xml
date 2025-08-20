@@ -8,6 +8,8 @@
     <bean id="custom403Handler" class="org.zerock.ex00.security.handler.Custom403Handler"/>
     <bean id="customLoginSuccessHandler" class="org.zerock.ex00.security.handler.CustomLoginSuccessHandler"/>
     <bean id="customLogoutHandler" class="org.zerock.ex00.security.handler.CustomLogoutHandler"/>
+    <bean id="customUserDetailsService" class="org.zerock.ex00.security.CustomUserDetailsService"/>
+
     <security:http>
         <security:form-login
                 login-page="/member/login"
@@ -17,23 +19,20 @@
 
         <security:csrf disabled="true"/>
         <security:access-denied-handler ref="custom403Handler"/>
-        <security:intercept-url pattern="/sample/all" access="permitAll()"/>
+
+        <!--<security:intercept-url pattern="/sample/all" access="permitAll()"/>
         <security:intercept-url pattern="/sample/manager" access="hasAnyRole({'ROLE_MANAGER','ROLE_ADMIN'})"/>
-        <security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>-->
+
+
         <security:logout success-handler-ref="customLogoutHandler"/>
+        <security:remember-me token-validity-seconds="604800" data-source-ref="dataSource"/>
     </security:http>
+
+
     <security:authentication-manager>
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user
-                        name="user1"
-                        authorities="ROLE_MANAGER"
-                        password="$2a$10$6kCTmkyES.UlCkZG4UWV8O80kHuofLXMXu66FLH1.pGGUgLRu1IQm"/>
-                <security:user
-                        name="admin1"
-                        authorities="ROLE_ADMIN"
-                        password="$2a$10$9XO/NU/wahP.rDP0z.0YIO6JANRbjr7VeBFpakkZ04QGSHoMVqC3i"/>
-            </security:user-service>
+        <security:authentication-provider user-service-ref="customUserDetailsService">
+
         </security:authentication-provider>
     </security:authentication-manager>
 </beans>

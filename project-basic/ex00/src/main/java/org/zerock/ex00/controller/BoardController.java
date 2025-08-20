@@ -2,15 +2,15 @@ package org.zerock.ex00.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.zerock.ex00.domain.AttachVO;
-import org.zerock.ex00.domain.BoardVO;
-import org.zerock.ex00.domain.Criteria;
-import org.zerock.ex00.domain.PageDto;
+import org.zerock.ex00.domain.*;
 import org.zerock.ex00.service.BoardService;
 import org.zerock.ex00.util.UpDownUtil;
 
@@ -21,7 +21,8 @@ import java.util.List;
 @Log4j2
 @RequiredArgsConstructor
 @RequestMapping("/board")
-public class BoardController {
+public class
+BoardController {
 
     private final BoardService boardService;
     private final UpDownUtil upDownUtil;
@@ -64,19 +65,12 @@ public class BoardController {
     }
 
 
-    @GetMapping({"/{job}/{bno}"})
-    public String read(
-            @PathVariable(name = "job") String job,
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping({"/read/{bno}"})
+    public String readGET(
             @PathVariable(name = "bno") Long bno,
             @ModelAttribute("cri") Criteria criteria,
             Model model ) {
-
-        log.info("job: " + job);
-        log.info("bno: " + bno);
-
-        if( !(  job.equals("read") || job.equals("modify")  ) ){
-            throw new RuntimeException("Bad Request job");
-        }
 
         BoardVO boardVO = boardService.get(bno);
 
@@ -84,14 +78,49 @@ public class BoardController {
 
         model.addAttribute("vo", boardVO);
 
-        return "/board/"+job;
+        return "/board/read";
 
     }
 
+    //안전한 방법
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping({"/modify/{bno}"})
+    public String modifyGET(
+            @PathVariable(name = "bno") Long bno,
+            @ModelAttribute("cri") Criteria criteria,
+            @AuthenticationPrincipal MemberVO memberVO,
+            Model model ) {
+
+        BoardVO boardVO = boardService.get(bno);
+
+        log.info("boardVO: " + boardVO);
+
+
+        log.info("-========================================");
+        log.info("-========================================");
+        log.info(memberVO);
+        log.info("-========================================");
+
+        if(memberVO != null){
+            if( !memberVO.getUid().equals(boardVO.getWriter())){
+                throw new AccessDeniedException("NOT_OWNER");
+            }
+        }
+
+
+
+        model.addAttribute("vo", boardVO);
+
+        return "/board/modify";
+
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/register")
     public void register() {
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/register")
     public String registerPost(BoardVO boardVO,
                                @RequestParam(value = "files", required = false) MultipartFile[] files,
@@ -122,12 +151,23 @@ public class BoardController {
             @PathVariable(name="bno") Long bno,
             @RequestParam(value = "anos",required = false)Long[] anos,
             @RequestParam(value = "fullNames",required = false)String[] fullNames,
+            @AuthenticationPrincipal MemberVO memberVO,
             RedirectAttributes rttr){
 
-        BoardVO boardVO = new BoardVO();
-        boardVO.setBno(bno);
+        //기존의 게시물을 조회해서 비교하고
+        BoardVO boardVO = boardService.get(bno);
+
+        if (boardVO == null) {
+            return "/board/list";
+        }
+        if (!boardVO.getWriter().equals(memberVO.getUid())) {
+            throw new AccessDeniedException("NOT_OWNER");
+        }
+        //비교가 끝나면 변경해서 저장
+
         boardVO.setTitle("해당 글은 삭제 되었습니다");
         boardVO.setContent("해당 글은 삭제 되었습니다.");
+        
         boardVO.setDelFlag(true);
 
         log.info("boardVO: " + boardVO);
@@ -141,15 +181,16 @@ public class BoardController {
         return "redirect:/board/list";
 
     }
-
+    //안전하지 않은 방법
+    @PreAuthorize("principal.username==#boardVO.writer")
     @PostMapping("/modify/{bno}")
     public String modify(
-            @PathVariable(name="bno") Long bno,
+            @PathVariable(name = "bno") Long bno,
             @RequestParam(value = "files", required = false) MultipartFile[] files,
-            @RequestParam(value = "anos",required = false)Long[] anos,
-            @RequestParam(value = "fullNames",required = false)String[] fullNames,
+            @RequestParam(value = "anos", required = false) Long[] anos,
+            @RequestParam(value = "fullNames", required = false) String[] fullNames,
             BoardVO boardVO,
-            RedirectAttributes rttr){
+            RedirectAttributes rttr) {
 
         boardVO.setBno(bno);
 
@@ -161,13 +202,13 @@ public class BoardController {
 
         log.info("boardVO: " + boardVO);
 
-        boardService.modify(boardVO,anos);
+        boardService.modify(boardVO, anos);
 
         upDownUtil.deleteFiles(fullNames);
 
         rttr.addFlashAttribute("result", boardVO.getBno());
 
-        return "redirect:/board/read/"+bno;
+        return "redirect:/board/read/" + bno;
 
     }
 

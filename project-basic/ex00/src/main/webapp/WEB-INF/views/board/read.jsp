@@ -2,14 +2,15 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@include file="../includes/header.jsp" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<%@include file="../includes/header.jsp"%>
 
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Read</h1>
 <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
     For more information about DataTables, please visit the <a target="_blank"
-                                                               href="https://datatables.net">official DataTables
-        documentation</a>.</p>
+                                                               href="https://datatables.net">official DataTables documentation</a>.</p>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -21,39 +22,40 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Bno</span>
             </div>
-            <input type="text" class="form-control" value="<c:out value="${vo.bno}"/>" readonly>
+            <input type="text" class="form-control" value="<c:out value="${vo.bno}"/>"  readonly>
         </div>
         <div class="form-group input-group input-group-lg">
             <div class="input-group-prepend">
                 <span class="input-group-text">Title</span>
             </div>
-            <input type="text" name="title" class="form-control" value="<c:out value="${vo.title}"/>" readonly>
+            <input type="text" name="title" class="form-control"  value="<c:out value="${vo.title}"/>"  readonly >
         </div>
         <div class="form-group input-group input-group-lg">
             <div class="input-group-prepend">
                 <span class="input-group-text">Content</span>
             </div>
-            <textarea class="form-control" id="exampleFormControlTextarea1"
-                      name="content" rows="3"
-                      contenteditable="false"
-                      readonly><c:out value="${vo.content}"/></textarea>
+            <textarea name="content" class="form-control" readonly rows="3"><c:out value="${vo.content}"/>
+            </textarea>
         </div>
         <div class="form-group input-group input-group-lg">
             <div class="input-group-prepend">
                 <span class="input-group-text">Writer</span>
             </div>
-            <input type="text" name="writer" class="form-control" value="<c:out value="${vo.writer}"/>" readonly>
+            <input type="text" name="writer" class="form-control"  value="<c:out value="${vo.writer}"/>"  readonly>
         </div>
         <div class="form-group input-group input-group-lg">
             <div class="input-group-prepend">
                 <span class="input-group-text">RegDate</span>
             </div>
-            <input type="text" name="writer" class="form-control" value="<c:out value="${vo.regDate}"/>" readonly>
+            <input type="text" name="writer" class="form-control"  value="<c:out value="${vo.regDate}"/>"  readonly>
         </div>
-        <div class="float-right">
-            <button type="button" class="btn btn-info btnList">LIST</button>
-            <c:if test="${!vo.delFlag}">
-                <button type="button" class="btn btn-warning btnModify">MODIFY</button>
+        <div class="float-right mt-2">
+            <button type="button" class="btn btn-info btnList" >LIST</button>
+
+            <sec:authentication property="principal" var="secInfo"/>
+
+            <c:if test="${secInfo.uid == vo.writer}">
+                <button type="button" class="btn btn-warning btnModify" >MODIFY</button>
             </c:if>
         </div>
     </div>
@@ -71,28 +73,39 @@
             </c:forEach>
         </c:if>
     </div>
+
 </div>
+
 <div class="card shadow mb-4">
-    <ul class="list-group replyList">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            Cras justo odio
-            <span class="badge badge-primary badge-pill">14</span>
-        </li>
-    </ul>
+    <div class="card-header py-3">
+        <button class="btn btn-info addReplyBtn">Add Reply</button>
+    </div>
+    <div class="card-body ">
+        <div>
+            <ul class="list-group replyList">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                </li>
+                Cras justo odio
+                <span class="badge badge-primary badge-pill">14</span>
+            </ul>
+        </div>
+        <div class="mt-3" >
+            <ul class="pagination">
+                <li class="page-item ">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
-<ul class="pagination">
-    <li class="page-item ">
-        <a class="page-link" href="#" tabindex="-1">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item active">
-        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-        <a class="page-link" href="#">Next</a>
-    </li>
-</ul>
 
 <div class="modal" id="replyModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -108,13 +121,13 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Reply Text</span>
                     </div>
-                    <input type="text" name="replyText" class="form-control">
+                    <input type="text" name="replyText" class="form-control" >
                 </div>
                 <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Replyer</span>
                     </div>
-                    <input type="text" name="replyer" class="form-control">
+                    <input type="text" name="replyer" class="form-control" >
                 </div>
             </div>
             <div class="modal-footer">
@@ -138,36 +151,42 @@
     </c:if>
 </form>
 
-<%@include file="../includes/footer.jsp" %>
+<%@include file="../includes/footer.jsp"%>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
 <script>
+
     const actionForm = document.querySelector("#actionForm")
     const bno = '${vo.bno}'
 
-    document.querySelector(".btnList").addEventListener("click", (e) => {
+    document.querySelector(".btnList").addEventListener("click",(e) => {
         actionForm.setAttribute("action", "/board/list")
         actionForm.submit()
     }, false)
 
-    document.querySelector(".btnModify").addEventListener("click", (e) => {
-        actionForm.setAttribute("action", `/board/modify/\${bno}`)
-        actionForm.submit()
-    }, false)
+    const modifyBtn = document.querySelector(".btnModify")
+
+    if(modifyBtn){
+        modifyBtn.addEventListener("click",(e) => {
+            actionForm.setAttribute("action", `/board/modify/\${bno}`)
+            actionForm.submit()
+        }, false)
+    }
+
+
 </script>
 
-
 <script>
-    const boardBno =
-    ${vo.bno}
+
+    const boardBno = ${vo.bno}
     const replyUL = document.querySelector(".replyList")
     const pageUL = document.querySelector(".pagination")
 
-    let pageNum = 1
-    let amount = 10
+    const currentUser = '<sec:authentication property="principal.uid"/>'
 
-    const getList = async (pageParam, amountParam) => {
+
+    const getList = async (pageParam, amountParam)  => {
 
         const pageNum = pageParam || 1
         const amount = amountParam || 10
@@ -175,104 +194,119 @@
         const res = await axios.get(`/reply/list/\${boardBno}`, {
             params: {pageNum, amount}
         })
-
         const data = res.data
         const pageDto = data.pageDto
         const replyList = data.replyList
 
         printReplyList(pageDto, replyList)
+
     }
 
     const registerReply = async (replyObj) => {
-        const res = await axios.post('/reply/register', replyObj)
+
+        const res = await axios.post('/reply/register', replyObj )
 
         const data = res.data
 
-        console.log(data)
-
         const lastPage = Math.ceil(data.COUNT / 10.0)
+
         getList(lastPage)
+
 
     }
 
     const printReplyList = (pageDto, replyList) => {
 
-        // “리스트를 초기화하고, 새 HTML을 만들 준비” 하는 단계
         replyUL.innerHTML = ""
+
         let str = ''
         for (const reply of replyList) {
+
             const {rno, replyText, replyer} = reply
+
             str += `
               <li data-rno="\${rno}" class="list-group-item d-flex justify-content-between align-items-center">
-
                 \${rno} --- \${replyText}
                 <span class="badge badge-primary badge-pill">\${replyer}</span>
               </li>`
         }
         replyUL.innerHTML = str
 
-        const {startPage, endPage, prev, next} = pageDto;
+        //----------------------------------------
+        const {startPage, endPage, prev, next} = pageDto
         const pageNum = pageDto.cri.pageNum
 
-        let pageStr = ``
-        if (prev) {
-            pageStr += ` <li class="page-item ">
-                                <a class="page-link" href="\${startPage-1}" tabindex="-1">Previous</a>
-                         </li>`
+        let pageStr = ''
+
+        //prev
+        if(prev){
+            pageStr +=
+                `<li class="page-item ">
+                    <a class="page-link" href="\${startPage-1}" tabindex="-1">Previous</a>
+                </li>`
         }
-        for (let i = startPage; i <= endPage; i++) {
-            pageStr += `<li class="page-item \${i==pageNum?'active':''}">
-                              <a class="page-link" href="\${i}">\${i}</a>
-                        </li>`
+
+        for (let i = startPage; i <= endPage ; i++) {
+
+            pageStr += `<li class="page-item \${i == pageNum? 'active': ''}">
+        <a class="page-link" href="\${i}">\${i}</a>
+    </li>`
         }
-        if (next) {
-            pageStr += ` <li class="page-item ">
-                                <a class="page-link" href="\${endPage+1}" tabindex="-1">Next</a>
-                         </li>`
+
+        //next
+        if(next){
+            pageStr +=
+                `<li class="page-item ">
+                    <a class="page-link" href="\${endPage + 1 }" tabindex="-1">Next</a>
+                </li>`
         }
+
         pageUL.innerHTML = pageStr
+
     }
 
     pageUL.addEventListener("click", (e) => {
+        e.preventDefault()
         e.stopPropagation()
-        const link = e.target.closest('a.page-link');
-        // 페이지네이션 영역 내의 <a>가 아니면 무시
-        if (!link || !pageUL.contains(link)) return;
-
-        e.preventDefault(); // 실제 링크 이동 막기
-        // href에서 페이지 번호 추출
-        const pageNum = parseInt(link.getAttribute("href"), 10);
+        const target = e.target
+        const pageNum = target.getAttribute("href")
+        console.log(pageNum)
         currentPage = pageNum
         getList(pageNum)
     }, false)
 
-    //현재 댓글 페이지 번호
-    let currentPage = 1;
-    let currentRno = 0;
+    //현재 댓글 페이지
+    let currentPage = 1
+    let currentRno = 0
 
     replyUL.addEventListener("click", e => {
         e.stopPropagation()
-        const targetReply = e.target
-        console.log(targetReply)
-        const rno = targetReply.getAttribute("data-rno")
-        currentRno = rno;
-        console.log("rno :" + rno);
-        console.log("currentPage :" + currentPage);
-        //result값은 async 메서드를 호출했기 때문에 Promise가 된다.
-        getReply(currentRno).then(result => {
+        const target = e.target
+        currentRno = target.getAttribute("data-rno")
+
+        getReply(currentRno).then( result => {
             replyTextInput.value = result.replyText
             replyerInput.value = result.replyer
-            replyModal.show()
-        })
+            //result.replyer와 currentUser가 일치하지 않는다면
+            const delBtn = document.querySelector("#replyDelBtn")
+            const modBtn = document.querySelector("#replyModBtn")
 
-    }, false)
+            const noneValue = result.replyer === currentUser ? '' :'d-none'
+
+            //modBtn.setAttribute('class',`btn btn-warning \${noneValue}`)
+            //delBtn.setAttribute('class',`btn btn-danger \${noneValue}`)
+
+            replyAddModal.show()
+        } )
+
+    } , false)
 
     getList()
 
-    const replyModal = new bootstrap.Modal(document.querySelector('#replyModal'))
-    const replyTextInput = document.querySelector("input[name='replyText']");
-    const replyerInput = document.querySelector("input[name='replyer']");
 
+    const replyAddModal = new bootstrap.Modal(document.querySelector('#replyModal'))
+    const replyTextInput = document.querySelector("input[name='replyText']")
+    const replyerInput = document.querySelector("input[name='replyer']")
 
     const getReply = async (rno) => {
 
@@ -285,57 +319,86 @@
 
         const res = await axios.delete(`/reply/\${rno}`)
 
-        return res.data //{Result : true}
+        return res.data // {Result:true}
     }
 
-    const modifyReply = async (replyObj) => {
+    const modifyReply = async  (replyObj) => {
 
-        const res = await axios.put(`/reply/\${currentRno}`, replyObj)
+        const res = await  axios.put(`/reply/\${currentRno}`, replyObj)
 
         return res.data
-    };
+    }
 
 
-    // replyModal.show()
+    //replyAddModal.show()
 
-    document.querySelector("#replyRegBtn").addEventListener("click", evt => {
-        evt.preventDefault()
-        evt.stopPropagation()
+    document.querySelector("#replyRegBtn").addEventListener("click", e => {
+        e.preventDefault()
+        e.stopPropagation()
 
         const replyObj = {
             replyText: replyTextInput.value,
             replyer: replyerInput.value,
             bno: boardBno
         }
-        //비동기함수이기 때문에 항상 promise를 return한다. -> then이라는 것을 사용할 수 있음(modal창 닫기에 활용)
-        //여기서 비동기 함수이기 때문에 result값은 undefined가 나온다.
-        registerReply(replyObj).then(result => {
-            replyModal.hide()
+
+        registerReply(replyObj).then( result => {
+            replyAddModal.hide()
+            replyTextInput.value =''
+            replyerInput.value = ''
         })
+
     }, false)
-    document.querySelector("#replyDelBtn").addEventListener("click", evt => {
+
+
+    document.querySelector("#replyDelBtn").addEventListener("click", e => {
+
         deleteReply(currentRno).then(result => {
-            alert('댓글이 삭제되었습니다.')
-            replyModal.hide()
-            getList();
+            alert('댓글이 삭제되었습니다')
+            replyAddModal.hide()
+            getList()
+
+        }).catch(ex => {
+
+            alert("댓글 삭제는 불가능합니다.")
+            replyAddModal.hide()
+            getList()
+
         })
-    }, false)
-    document.querySelector("#replyModBtn").addEventListener("click", evt => {
-        console.log("replyText:" + replyTextInput);
-        console.log("replyer:" + replyerInput);
+    },false)
+
+    document.querySelector("#replyModBtn").addEventListener("click", e=> {
+
         const replyObj = {
             replyText: replyTextInput.value,
             replyerInput: replyerInput.value,
             bno: boardBno
         }
-        modifyReply(replyObj).then(result => {
+
+        modifyReply(replyObj).then( result => {
+
             alert("댓글이 수정되었습니다.")
-            replyModal.hide()
+            replyAddModal.hide()
             getList(currentPage)
+
+        }).catch(ex => {
+
+            alert("댓글 수정이 불가능합니다.")
+            replyAddModal.hide()
+            getList(currentPage)
+
         })
+
+    },false)
+
+    document.querySelector(".addReplyBtn").addEventListener("click", e => {
+        replyerInput.value = currentUser
+        replyerInput.setAttribute("readonly", true)
+        replyAddModal.show()
+
     }, false)
 
 
 </script>
 
-<%@include file="../includes/end.jsp" %>
+<%@include file="../includes/end.jsp"%>

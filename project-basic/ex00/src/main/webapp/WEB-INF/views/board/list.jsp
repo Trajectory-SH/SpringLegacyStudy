@@ -10,26 +10,36 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/header.jsp" %>
 
 
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Tables</h1>
 <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
     For more information about DataTables, please visit the <a target="_blank"
-                                                               href="https://datatables.net">official DataTables documentation</a>.</p>
+                                                               href="https://datatables.net">official DataTables
+        documentation</a>.</p>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Board List</h6>
+        <sec:authorize access="isAuthenticated()">
+            <div class="float-right">
+                <a href="/board/register">
+                    <button class="btn btn-info">Register</button>
+                </a>
+            </div>
+        </sec:authorize>
+
     </div>
     <div class="card-body">
 
         <div class="float-right d-flex justify-content-start" style="margin-bottom: 2em">
             <select name='typeSelect' class="form-select form-control">
-                <option value="" >--</option>
+                <option value="">--</option>
                 <option value="T" ${cri.typeStr == 'T' ? 'selected' : '' }>제목</option>
                 <option value="C" ${cri.typeStr == 'C' ? 'selected' : '' }>내용</option>
                 <option value="W" ${cri.typeStr == 'W' ? 'selected' : '' }>작성자</option>
@@ -37,7 +47,7 @@
                 <option value="TW" ${cri.typeStr == 'TW' ? 'selected' : '' } >제목 OR 작성자</option>
                 <option value="TCW" ${cri.typeStr == 'TCW' ? 'selected' : '' }>제목 OR 내용 OR 작성자</option>
             </select>
-            <input type='text' class="form-control"  name='keywordInput' value="<c:out value="${cri.keyword}"/>" />
+            <input type='text' class="form-control" name='keywordInput' value="<c:out value="${cri.keyword}"/>"/>
             <button class='btn btn-outline-info searchBtn'>Search</button>
         </div>
 
@@ -54,7 +64,7 @@
                 </c:if>
             </form>
 
-            <table class="table table-bordered" id="dataTable" >
+            <table class="table table-bordered" id="dataTable">
                 <thead>
                 <tr>
                     <th>Bno</th>
@@ -68,7 +78,7 @@
 
                 <c:forEach var="board" items="${list}">
 
-                    <tr data-bno="${board.bno}" >
+                    <tr data-bno="${board.bno}">
                         <td><c:out value="${board.bno}"/></td>
                         <td><c:out value="${board.title}"/></td>
                         <td><c:out value="${board.writer}"/></td>
@@ -129,7 +139,7 @@
 </div>
 
 
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../includes/footer.jsp" %>
 
 <script>
 
@@ -139,7 +149,7 @@
 
     console.log(myModal)
 
-    if(result){
+    if (result) {
         myModal.show()
     }
 
@@ -152,12 +162,12 @@
 
         const before = document.querySelector("#clonedActionForm")
 
-        if(before){
+        if (before) {
             before.remove()
         }
 
         const clonedActionForm = actionForm.cloneNode(true)
-        clonedActionForm.setAttribute("action",`/board/read/\${bno}`)
+        clonedActionForm.setAttribute("action", `/board/read/\${bno}`)
         clonedActionForm.setAttribute("id", "clonedActionForm")
         console.log(clonedActionForm)
 
@@ -165,7 +175,7 @@
 
         clonedActionForm.submit()
 
-    },false)
+    }, false)
 
     document.querySelector(".pagination").addEventListener("click", (e) => {
 
@@ -176,20 +186,20 @@
         const targetPage = target.getAttribute("href")
         console.log(targetPage)
 
-        actionForm.setAttribute("action","/board/list")
+        actionForm.setAttribute("action", "/board/list")
         actionForm.querySelector("input[name='pageNum']").value = targetPage
         actionForm.submit()
 
 
-    },false)
+    }, false)
 
-    document.querySelector(".searchBtn").addEventListener("click",(e)=> {
+    document.querySelector(".searchBtn").addEventListener("click", (e) => {
         e.preventDefault()
         e.stopPropagation()
 
         const selectObj = document.querySelector("select[name='typeSelect']")
 
-        const selectValue  = selectObj.options[selectObj.selectedIndex].value
+        const selectValue = selectObj.options[selectObj.selectedIndex].value
 
         console.log("selectValue---------------------")
         console.log(selectValue) //T, TCW
@@ -207,7 +217,7 @@
         str = `<input type='hidden' name='pageNum' value=1>`
         str += `<input type='hidden' name='amount' value=${cri.amount}>`
 
-        if(arr && arr.length > 0){
+        if (arr && arr.length > 0) {
             for (const type of arr) {
                 str += `<input type='hidden' name='types' value=\${type}>`
             }
@@ -221,9 +231,9 @@
 
         actionForm.submit()
 
-    },false)
+    }, false)
 
 
 </script>
 
-<%@include file="../includes/end.jsp"%>
+<%@include file="../includes/end.jsp" %>

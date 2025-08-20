@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.ex00.mappers.MemberMapper">
+    <insert id="insert">
+
+        insert into tbl_member (uid, upw, uname, email)
+        values ( #{uid}, #{upw}, #{uname}, #{email} )
+
+    </insert>
+
+    <insert id="insertAuth">
+        insert into tbl_auth (roleName, uid) values (#{roleName}, #{uid})
+    </insert>
+
+    <resultMap id="memberMap" type="MemberVO">
+<!--부모쪽에 id property를 생성해야 join시에 중복으로 객체를 생성하지 않고 Collection 형태로 return 한다.-->
+        <id property="uid" column="uid"/>
+        <result property="uid" column="uid"/>
+        <result property="upw" column="upw"/>
+        <result property="uname" column="uname"/>
+        <result property="email" column="email"/>
+        <result property="regDate" column="regDate"/>
+        <result property="modDate" column="modDate"/>
+        <collection property="authVOList" resultMap="authMap"/>
+    </resultMap>
+
+    <resultMap id="authMap" type="MemberAuthVO">
+        <result property="roleName" column="roleName"/>
+        <result property="uid" column="uid"/>
+    </resultMap>
+
+    <select id="select" resultMap="memberMap">
+        select *
+        from tbl_member
+        left join
+        tbl_auth ta on tbl_member.uid = ta.uid
+        where tbl_member.uid = #{uid}
+    </select>
+
+
+</mapper>

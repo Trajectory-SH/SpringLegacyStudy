@@ -3,7 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
@@ -16,9 +17,15 @@
 
     <context:component-scan base-package="org.zerock.ex00.controller"/>
     <context:component-scan base-package="org.zerock.ex00.util"/>
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver"/>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
     <mvc:resources mapping="/resources/**" location="classpath:/static/"/>
     <mvc:resources mapping="/files/**" location="file:///Users/kronos0697/Trajectory/JAVA/SpringLegacyStudy/"/>
+    <security:global-method-security pre-post-annotations="enabled"/>
+
 
 
 </beans>

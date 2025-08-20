@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@include file="../includes/header.jsp"%>
 
@@ -34,7 +35,8 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Writer</span>
                 </div>
-                <input type="text" name="writer" class="form-control" >
+                <input type="text" name="writer" class="form-control"
+                value="<sec:authentication property="principal.uid"/>" readonly>
             </div>
             <div class="form-group input-group input-group-lg">
                 <div class="input-group-prepend">

@@ -43,7 +43,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Writer</span>
                 </div>
-                <input type="text" class="form-control" value="<c:out value="${vo.writer}"/>" readonly>
+                <input type="text" class="form-control" name="writer" value="<c:out value="${vo.writer}"/>" readonly>
             </div>
             <div class="form-group input-group input-group-lg">
                 <div class="input-group-prepend">

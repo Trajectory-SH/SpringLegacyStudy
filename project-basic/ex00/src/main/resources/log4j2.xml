@@ -1,10 +1,11 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
 
     <!-- Appender, Layout 설정 -->
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout/>
+            <PatternLayout pattern="%d %5p [%c] %m%n"/>
         </Console>
         <File name="file" fileName="./logs/file/sample.log" append="false">
             <PatternLayout pattern="%d %5p [%c] %m%n"/>
